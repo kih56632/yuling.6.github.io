@@ -17,7 +17,7 @@ body {
   background-color: #f9f9f9;
 }
 
- h2 {
+h2 {
   font-size: 2rem;
   margin-bottom: 20px;
   text-align: center;
@@ -49,26 +49,26 @@ nav ul {
   gap: 20px;
 }
 
-nav ul li a ,.logo a {
+nav ul li a, .logo a {
   text-decoration: none;
   color: #333;
   font-weight: 600;
   transition: color 0.2s;
 }
 
-nav ul li a:hover ,.logo a :hover{
+nav ul li a:hover, .logo a:hover {
   color: #007bff;
 }
 
 /* 區塊通用樣式 */
 section {
   padding: 100px 20px 60px;
-  min-height:auto;
+  min-height: auto;
 }
 
 /* 主頁樣式 */
 #hero {
-  background-image: url('../images/wulai_test1.jpg'); /* 換成你的圖片路徑 */
+  background-image: url('../images/wulai_test1.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -101,7 +101,6 @@ section {
   color: #333;
 }
 
-
 #about h3 {
   font-size: 1.5rem;
   margin-top: 40px;
@@ -111,10 +110,6 @@ section {
 #about p {
   margin-bottom: 20px;
 }
-
-
-
-
 
 /* 商店介紹 */
 #shop {
@@ -129,6 +124,10 @@ section {
   background: #fff;
   cursor: pointer;
   transition: background 0.3s;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: #333;
+  text-align: center;
 }
 
 .shop-item:hover {
@@ -147,33 +146,21 @@ section {
 .shop-detail {
   display: none;
   margin-top: 10px;
-  max-height:none;
+  max-height: none;
   overflow-y: auto;
   padding-right: 10px;
   color: #555;
-}
-.shop-detail img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 10px auto;
-  border-radius: 8px;
-}
-
-.shop-item.active .shop-detail {
-  display: block;
-}
-
-.shop-detail {
   background-color: #fafafa;
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  margin-top: 10px;
   font-size: 1.05rem;
   line-height: 1.8;
-  color: #333;
-  text-align :center;
+  text-align: center;
+}
+
+.shop-item.active .shop-detail {
+  display: block;
 }
 
 .shop-detail h4 {
@@ -198,7 +185,6 @@ section {
   margin: 20px auto 0;
   border-radius: 8px;
 }
-
 
 /* 其他連結 */
 #links {
@@ -234,10 +220,10 @@ section {
   margin-bottom: 10px;
 }
 
-.link-icons img{
-    width:auto;
-    height: 50px;
-    margin: 20px;
+.link-icons img {
+  width: auto;
+  height: 50px;
+  margin: 20px;
 }
 
 /* Footer */
@@ -251,23 +237,35 @@ footer {
 /* 響應式調整 */
 @media (max-width: 768px) {
   nav {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
+    padding: 10px 20px;
   }
 
   nav ul {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
     gap: 10px;
     margin-top: 10px;
+    padding-left: 0;
+  }
+
+  nav li {
+    list-style: none;
+  }
+
+  nav a {
+    font-size: 1rem;
+    padding: 5px 10px;
   }
 
   section {
-    padding-top: 120px;
+    padding: 60px 16px;
   }
 
-  @media screen and (max-width: 768px) {
   #about {
     padding: 40px 16px;
     font-size: 1rem;
@@ -288,6 +286,11 @@ footer {
 
   .shop-detail h4 {
     font-size: 1.15rem;
+  }
+
+  .shop-item {
+    font-size: 1rem;
+    padding: 16px;
   }
 
   .shop-item h3 {
