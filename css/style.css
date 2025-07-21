@@ -60,6 +60,16 @@ nav ul li a:hover, .logo a:hover {
   color: #007bff;
 }
 
+.menu-toggle {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+nav ul.menu {
+  display: flex;
+}
+
+
 /* 區塊通用樣式 */
 section {
   padding: 100px 20px 60px;
@@ -262,6 +272,22 @@ footer {
     padding: 5px 10px;
   }
 
+  .menu-toggle {
+    display: block;
+  }
+  nav ul.menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+  }
+  nav ul.menu.open {
+    display: flex;
+  }
+  nav ul.menu li a {
+    padding: 10px;
+    width: 100%;
+  }
+
   section {
     padding: 60px 16px;
   }
@@ -291,6 +317,9 @@ footer {
   .shop-item {
     font-size: 1rem;
     padding: 16px;
+    width: 100%;
+    padding: 20px;
+    margin: 12px 0;
   }
 
   .shop-item h3 {
