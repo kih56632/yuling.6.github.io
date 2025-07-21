@@ -18,6 +18,13 @@
     <li><a href="#shop">商店介紹</a></li>
     <li><a href="#links">其他連結</a></li>
   </ul>
+<div class="menu-toggle" onclick="toggleMenu()">☰</div>
+<ul class="menu">
+  <li><a href="#hero">主頁</a></li>
+  <li><a href="#about">關於我們</a></li>
+  <li><a href="#shop">商店介紹</a></li>
+  <li><a href="#links">其他連結</a></li>
+</ul>
 </nav>
 
   <!-- 🅰️ 主頁 -->
@@ -165,6 +172,9 @@
     function toggleShopItem(el) {
       el.classList.toggle("active");
     }
+	function toggleMenu() {
+	document.querySelector('.menu').classList.toggle('open');
+	}
   </script>
 
 </body>
