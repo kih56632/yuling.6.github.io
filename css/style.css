@@ -21,9 +21,8 @@ body {
   font-size: 2rem;
   margin-bottom: 20px;
   text-align: center;
+  padding-top: 18px;
 }
-
-
 
 /* 導覽列樣式 */
 nav {
@@ -31,7 +30,6 @@ nav {
   top: 0;
   width: 100%;
   background-color: #fff;
-  padding: 10px 30px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   display: flex;
   justify-content: space-between;
@@ -51,15 +49,23 @@ nav ul {
   gap: 20px;
 }
 
-nav ul li a ,.logo a {
+nav ul li a , .logo a {
   text-decoration: none;
   color: #333;
   font-weight: 600;
   transition: color 0.2s;
 }
 
-nav ul li a:hover ,.logo a :hover{
+nav ul li a:hover , .logo a:hover {
   color: #007bff;
+}
+
+nav ul li.nav-item{
+  width: 100%;
+}
+
+.container img{
+  width: 70px;
 }
 
 /* 區塊通用樣式 */
@@ -271,7 +277,7 @@ footer {
 
   @media screen and (max-width: 768px) {
   #about {
-    padding: 40px 16px;
+    padding: 65px 16px;
     font-size: 1rem;
   }
 
@@ -282,7 +288,10 @@ footer {
   #about h3 {
     font-size: 1.3rem;
   }
-
+  #shop {
+    padding: 65px 16px;
+    font-size: 1rem;
+  }
   .shop-detail {
     font-size: 1rem;
     padding: 16px;
@@ -296,6 +305,10 @@ footer {
     font-size: 1.3em;
   }
 
+  #link {
+    padding: 65px 16px;
+    font-size: 1rem;
+  }
   .link-grid {
     flex-direction: column;
     gap: 20px;
