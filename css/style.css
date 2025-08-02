@@ -76,18 +76,24 @@ section {
 
 /* 主頁樣式 */
 #hero {
-  background-image: url('../images/wulai_test1.jpg'); /* 換成你的圖片路徑 */
+  background-color: #3366;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  height: 100vh;
+  height: 105vh;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 0 20px;
+  padding: 79px 0 0 0;
+  overflow: hidden;
+}
+
+#hero img {
+  object-fit: cover;
+  height: 100vh;
 }
 
 #hero h1 {
@@ -101,7 +107,7 @@ section {
 
 /* 關於我們 */
 #about {
-  padding: 60px 20px;
+  padding: 88px 20px;
   max-width: 960px;
   margin: 0 auto;
   font-size: 1.1rem;
@@ -276,6 +282,17 @@ footer {
   }
 
   @media screen and (max-width: 768px) {
+
+
+  #hero {
+    height: 50vh;
+  }
+
+.carousel-inner {
+    overflow: visible;
+}
+
+
   #about {
     padding: 65px 16px;
     font-size: 1rem;
@@ -295,6 +312,7 @@ footer {
   .shop-detail {
     font-size: 1rem;
     padding: 16px;
+    display: none;
   }
 
   .shop-detail h4 {
