@@ -337,6 +337,52 @@ function toggleShopItem(el) {
     $items.forEach(item => $container.append(item));
   });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 1) 自動替每個 .shop-item 產生穩定的 id（用 h3 文字做 slug）
+  const items = document.querySelectorAll('#shop .shop-item');
+  items.forEach((el, i) => {
+    if (!el.id) {
+      const title = el.querySelector('h3')?.textContent || ('項目' + (i+1));
+      const slug =
+        'shop-' + title.trim()
+          .toLowerCase()
+          .replace(/[\s\u3000]+/g, '-')               // 空白 → -
+          .replace(/[^\w\u4e00-\u9fff\-]+/g, '')      // 保留英數底線中文與 -
+          .replace(/\-+/g, '-')                       // 合併多個 -
+          .replace(/^\-|\-$/g, '');                   // 去頭尾 -
+      el.id = slug || ('shop-item-' + (i+1));
+    }
+  });
+
+  // 2) 讀取 #hash 深連結：自動展開並捲到該商店
+  const openFromHash = () => {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (el && el.classList.contains('shop-item')) {
+      if (typeof window.toggleShopItem === 'function') {
+        // 若你的 toggleShopItem 支援強制打開的參數，可傳 true；不支援也沒關係，呼叫即可
+        try { window.toggleShopItem(el, true); } catch { window.toggleShopItem(el); }
+      } else {
+        el.classList.add('open'); // 保險：沒有函式就直接加 open 類
+      }
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+  window.addEventListener('hashchange', openFromHash);
+  openFromHash();
+
+  // 3) 點某個商店時，把目前網址更新成該商店的 #id（方便複製分享）
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.shop-item');
+    if (card && card.id) {
+      // 等你的 toggle 執行，同步更新網址（不跳頁）
+      history.replaceState(null, '', '#' + encodeURIComponent(card.id));
+    }
+  });
+});
+</script>
 
 </body>
 </html>
