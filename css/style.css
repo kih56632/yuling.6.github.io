@@ -143,6 +143,7 @@ section {
   background: #fff;
   cursor: pointer;
   transition: background 0.3s;
+    scroll-margin-top: 80px; /* 依你的 nav 高度調整 */
 }
 
 .shop-item:hover {
