@@ -24,6 +24,10 @@ body {
   padding-top: 18px;
 }
 
+h6{
+  color: brown;
+}
+
 /* 導覽列樣式 */
 nav {
   position: fixed;
@@ -136,6 +140,7 @@ section {
 }
 
 .shop-item {
+  
   margin: 20px 0;
   border: 1px solid #ddd;
   padding: 15px;
@@ -180,16 +185,45 @@ section {
 }
 
 .shop-detail {
-  background-color: #fafafa;
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  margin-top: 10px;
+  background: url('../images/wulai_0.png') center center no-repeat;
+  background-size: cover;       /* 保持鋪滿 */
+  background-attachment: fixed; /* 固定背景，不隨捲動 */
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  margin-top: 15px;
   font-size: 1.05rem;
   line-height: 1.8;
-  color: #333;
-  text-align :center;
+  color: #2c3e50;
+  text-align: center;
 }
+
+
+/* 移除表格預設背景，保持透明 */
+.table {
+  background-color: transparent !important;
+  border-collapse: separate; /* 保持圓角 & 邊框效果 */
+}
+
+/* 表格列預設透明 */
+.table-hover tbody tr {
+  background-color: transparent;
+}
+
+/* 滑鼠移上去才高亮 */
+.table-hover tbody tr:hover {
+  background-color: #f5f6f708; /* 你可以換成 #f0f8ff 或其他淡色 */
+}
+
+/* 表格儲存格也保持透明 */
+.table td, 
+.table th {
+  background-color: transparent !important;
+  border: none; /* 如果你不要邊框，可以加這行 */
+}
+
+
+
 
 .shop-detail h4 {
   font-size: 1.3rem;
@@ -202,7 +236,7 @@ section {
 }
 
 .shop-detail strong {
-  color: #c0392b;
+  color: #284b92;
   font-weight: bold;
 }
 
@@ -255,6 +289,12 @@ section {
     margin: 20px;
 }
 
+#fb-root{
+  display: inline;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 /* Footer */
 footer {
   text-align: center;
@@ -290,7 +330,7 @@ footer {
   }
 
 .carousel-inner {
-    overflow: visible;
+    overflow: fill;
 }
 
 
@@ -332,4 +372,5 @@ footer {
     flex-direction: column;
     gap: 20px;
   }
+}
 }
