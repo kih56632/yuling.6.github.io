@@ -93,6 +93,7 @@ section {
   text-align: center;
   padding: 79px 0 0 0;
   overflow: hidden;
+  padding-top: 79px;
 }
 
 #hero img {
@@ -326,11 +327,11 @@ footer {
 
 
   #hero {
-    height: 50vh;
+    height: 70vh;
   }
 
 .carousel-inner {
-    overflow: fill;
+    overflow: visible;
 }
 
 
