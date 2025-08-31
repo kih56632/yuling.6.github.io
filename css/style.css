@@ -363,6 +363,7 @@ footer {
 
   .shop-item h3 {
     font-size: 1.3em;
+    cursor: pointer;
   }
 
   #link {
