@@ -484,106 +484,41 @@
   </footer>
 
   <!-- 引入 Bootstrap 5 Bundle（包含所有必要的插件） -->
+<!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-  <script>
-    
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-  // 點擊導覽列連結時，自動收起漢堡選單（手機版）
+<!-- CounterAPI -->
+<script src="https://counterapi.com/c.js?ns=Wulai.test" async></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const navbar = document.querySelector('nav.navbar');
+
+  // ------------------------------------------
+  // 1. navbar 點擊收起 (手機版)
+  // ------------------------------------------
   document.querySelectorAll('.navbar-nav .nav-link').forEach(link => {
     link.addEventListener('click', () => {
       const navbarCollapse = document.querySelector('.navbar-collapse');
       const bsCollapse = bootstrap.Collapse.getInstance(navbarCollapse);
-      if (bsCollapse) {
-        bsCollapse.hide();
-      }
+      if (bsCollapse) bsCollapse.hide();
     });
   });
 
+  // ------------------------------------------
+  // 2. 商店項目隨機排序 (一次即可)
+  // ------------------------------------------
+  const $container = $(".shop-container");
+  const $items = $container.children(".shop-item").get();
+  $items.sort(() => 0.5 - Math.random());
+  $items.forEach(item => $container.append(item));
 
-  // 切換商店項目的顯示/隱藏
-function toggleShopItem(el) {
-  // 切換 active 類別，當點擊時展開或隱藏 shop-detail 區域
-  el.classList.toggle("active");
-}
-
-    // 切換 active 類別
-  el.classList.toggle("active");
-
-  // 滾動到該商店項目
-  el.scrollIntoView({
-    behavior: 'smooth',
-    block: 'center'  // 滾動到視窗中間
-  });
-  </script>
-
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-
-<script>
-  // 商店項目隨機排序
-  $(document).ready(function () {
-    const $container = $(".shop-container");
-    const $items = $container.children(".shop-item").get();
-
-    // Fisher–Yates 洗牌演算法
-    $items.sort(function () {
-      return 0.5 - Math.random();
-    });
-
-    // 重新加入到容器中
-    $items.forEach(item => $container.append(item));
-  });
-</script>
-
-<script>
-  // 只監聽 .shop-item 下的 h3
-  $(document).on('click', '.shop-item > h3', function (e) {
-    const $item   = $(this).closest('.shop-item');
-    const $detail = $item.find('.shop-detail');
-
-    if ($item.hasClass('active')) {
-      // 已開啟 → 收起
-      $detail.stop(true, true).slideUp(300);
-      $item.removeClass('active');
-    } else {
-      // 先把其他開啟的都收起
-      $('.shop-item.active').each(function () {
-        $(this).removeClass('active')
-               .find('.shop-detail').stop(true, true).slideUp(300);
-      });
-      // 展開目前這一個
-      $detail.stop(true, true).slideDown(400);
-      $item.addClass('active');
-    }
-  });
-
-  // 若內容裡有連結/按鈕，避免氣泡到父層（保險）
-  $(document).on('click', '.shop-item .shop-detail', function (e) {
-    e.stopPropagation();
-  });
-</script>
-
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://counterapi.com/c.js?ns=Wulai.test" async></script>
-
-<script>
-  // 商店項目隨機排序
-  $(document).ready(function () {
-    const $container = $(".shop-container");
-    const $items = $container.children(".shop-item").get();
-
-    // Fisher–Yates 洗牌演算法
-    $items.sort(function () {
-      return 0.5 - Math.random();
-    });
-
-    // 重新加入到容器中
-    $items.forEach(item => $container.append(item));
-  });
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  // 1) 自動替每個 .shop-item 產生穩定的 id（用 h3 文字做 slug）
+  // ------------------------------------------
+  // 3. 自動產生 shop-item ID
+  // ------------------------------------------
   const items = document.querySelectorAll('#shop .shop-item');
   items.forEach((el, i) => {
     if (!el.id) {
@@ -592,41 +527,79 @@ document.addEventListener('DOMContentLoaded', () => {
         'shop-' + title.trim()
           .toLowerCase()
           .replace(/[\s\u3000]+/g, '-')               // 空白 → -
-          .replace(/[^\w\u4e00-\u9fff\-]+/g, '')      // 保留英數底線中文與 -
+          .replace(/[^\w\u4e00-\u9fff\-]+/g, '')      // 保留英數中文與 -
           .replace(/\-+/g, '-')                       // 合併多個 -
           .replace(/^\-|\-$/g, '');                   // 去頭尾 -
       el.id = slug || ('shop-item-' + (i+1));
     }
   });
 
-  // 2) 讀取 #hash 深連結：自動展開並捲到該商店
+  // ------------------------------------------
+  // 4. toggleShopItem 功能 (動畫滑動 + scroll 偏移)
+  // ------------------------------------------
+  function toggleShopItem(el) {
+    const $el = $(el);
+    const $detail = $el.find('.shop-detail');
+    const yOffset = navbar ? -navbar.offsetHeight - 10 : -90; // navbar 偏移 + 10px margin
+
+    if ($el.hasClass('active')) {
+      $detail.stop(true,true).slideUp(300, () => {
+        $el.removeClass('active');
+      });
+    } else {
+      // 收起其他
+      $('.shop-item.active').each(function() {
+        $(this).removeClass('active')
+               .find('.shop-detail').stop(true,true).slideUp(300);
+      });
+
+      // 展開自己
+      $detail.stop(true,true).slideDown(400, () => {
+        $el.addClass('active');
+
+        // 滾動到該商店 (slideDown 完成後)
+        const y = $el.offset().top + yOffset;
+        $('html, body').stop().animate({ scrollTop: y }, 400);
+      });
+    }
+  }
+
+  // ------------------------------------------
+  // 5. 監聽點擊
+  // ------------------------------------------
+  $(document).on('click', '.shop-item > h3', function(e){
+    toggleShopItem($(this).closest('.shop-item'));
+  });
+
+  // 防止內容連結點擊冒泡
+  $(document).on('click', '.shop-item .shop-detail', e => e.stopPropagation());
+
+  // ------------------------------------------
+  // 6. hash 深連結展開
+  // ------------------------------------------
   const openFromHash = () => {
     const id = decodeURIComponent(location.hash.slice(1));
     if (!id) return;
     const el = document.getElementById(id);
     if (el && el.classList.contains('shop-item')) {
-      if (typeof window.toggleShopItem === 'function') {
-        // 若你的 toggleShopItem 支援強制打開的參數，可傳 true；不支援也沒關係，呼叫即可
-        try { window.toggleShopItem(el, true); } catch { window.toggleShopItem(el); }
-      } else {
-        el.classList.add('open'); // 保險：沒有函式就直接加 open 類
-      }
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      toggleShopItem(el);
     }
   };
   window.addEventListener('hashchange', openFromHash);
   openFromHash();
 
-  // 3) 點某個商店時，把目前網址更新成該商店的 #id（方便複製分享）
-  document.addEventListener('click', (e) => {
+  // ------------------------------------------
+  // 7. 點擊商店更新網址 hash (方便分享)
+  // ------------------------------------------
+  document.addEventListener('click', e => {
     const card = e.target.closest('.shop-item');
     if (card && card.id) {
-      // 等你的 toggle 執行，同步更新網址（不跳頁）
       history.replaceState(null, '', '#' + encodeURIComponent(card.id));
     }
   });
 });
 </script>
+
 
 </body>
 </html>
