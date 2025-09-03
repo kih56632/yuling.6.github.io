@@ -97,7 +97,7 @@ section {
 }
 
 #hero img {
-  object-fit: none;
+  object-fit: fill;
   height: auto;
 }
 
@@ -377,3 +377,4 @@ footer {
 }
 
 }
+
